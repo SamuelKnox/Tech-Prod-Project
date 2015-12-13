@@ -22,14 +22,38 @@ public class Meleeist : MonoBehaviour
     }
 
     /// <summary>
-    /// Swings the child sword via the Animator
+    /// Swings the child sword over the head of the Meleeist via the Animator
     /// </summary>
-    public void SwingWeapon()
+    public void ChopAttack()
     {
-        if (!transform.Find(GameObjectNames.MeleeWeapon))
+        MeleeWeapon meleeWeapon = null;
+        var meleeWeaponTransform = transform.Find(GameObjectNames.MeleeWeapon) as Transform;
+        if (meleeWeaponTransform)
+        {
+            meleeWeapon = meleeWeaponTransform.GetComponent<MeleeWeapon>();
+        }
+        if (!meleeWeapon)
         {
             return;
         }
-        animator.SetTrigger(AnimationParameters.TriggerSwingMeleeWeapon);
+        animator.SetTrigger(Animations.TriggerChopAttack);
+    }
+
+    /// <summary>
+    /// Swings the child sword over the head of the Meleeist via the Animator
+    /// </summary>
+    public void LungeAttack()
+    {
+        MeleeWeapon meleeWeapon = null;
+        var meleeWeaponTransform = transform.Find(GameObjectNames.MeleeWeapon) as Transform;
+        if (meleeWeaponTransform)
+        {
+            meleeWeapon = meleeWeaponTransform.GetComponent<MeleeWeapon>();
+        }
+        if (!meleeWeapon)
+        {
+            return;
+        }
+        animator.SetTrigger(Animations.TriggerLungeAttack);
     }
 }

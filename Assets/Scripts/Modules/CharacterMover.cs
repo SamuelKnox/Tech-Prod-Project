@@ -17,9 +17,20 @@ public class CharacterMover : MonoBehaviour
     [Range(0, 100)]
     public float inAirDamping = 5.0f;
 
+    [Tooltip("Percentage of Max Jump Height that is the base jump")]
+    [Range(0, 1)]
+    public float startingJumpHeight = 0.5f;
+
     [Tooltip("How high the character can jump")]
     [Range(0, 25)]
-    public float jumpHeight = 3.0f;
+    public float maxJumpHeight = 5.0f;
+
+    [Tooltip("How fast the jump force increases")]
+    [Range(0, 1)]
+    public float jumpIncreaseRate = 0.5f;
+
+    [Tooltip("How often the character can be bumped in seconds")]
+    public float bumpCooldown = 1.0f;
 
     public event Action<RaycastHit2D> onControllerCollidedEvent;
     public event Action<Collider2D> onTriggerEnterEvent;
@@ -28,7 +39,10 @@ public class CharacterMover : MonoBehaviour
 
     private const float DropDownRate = 3.0f;
 
-    private float normalizedHorizontalSpeed;
+    private float oldAppliedJumpPower;
+    private float appliedJumpPower;
+    private float bumpTime;
+    private float horizontalSpeed;
     private CharacterController2D characterController2D;
     private RaycastHit2D lastControllerColliderHit;
     private Vector2 velocity;
@@ -40,6 +54,7 @@ public class CharacterMover : MonoBehaviour
     {
         characterController2D = GetComponent<CharacterController2D>();
         body2D = GetComponent<Rigidbody2D>();
+        bumpTime = bumpCooldown;
         characterController2D.onControllerCollidedEvent += onCharacterControllerCollider;
         characterController2D.onTriggerEnterEvent += onCharacterTriggerEnterEvent;
         characterController2D.onTriggerStayEvent += onCharacterTriggerStayEvent;
@@ -80,30 +95,31 @@ public class CharacterMover : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        UpdateBumpCooldown();
+        if (characterController2D.isGrounded)
+        {
+            velocity.y = 0;
+        }
+        if (jumping)
+        {
+            ApplyJump();
+        }
+        ApplyHorizontalMovement();
+        ApplyGravity();
+        ApplyVelocity();
+    }
+
     /// <summary>
     /// Moves the character left or right
     /// </summary>
     public void Move(float horizontalMovement)
     {
-        if (horizontalMovement < 0)
+        horizontalSpeed = horizontalMovement;
+        if (horizontalSpeed != 0 && Mathf.Sign(horizontalSpeed) != Mathf.Sign(transform.localScale.x))
         {
-            normalizedHorizontalSpeed = -1;
-            if (transform.localScale.x > 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-        }
-        else if (horizontalMovement > 0)
-        {
-            normalizedHorizontalSpeed = 1;
-            if (transform.localScale.x < 0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-        }
-        else
-        {
-            normalizedHorizontalSpeed = 0;
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -112,7 +128,16 @@ public class CharacterMover : MonoBehaviour
     /// </summary>
     public void Jump()
     {
-        jumping = true;
+        if (!jumping && characterController2D.isGrounded)
+        {
+            jumping = true;
+            appliedJumpPower = maxJumpHeight * startingJumpHeight;
+            oldAppliedJumpPower = 0;
+        }
+        else if(jumping)
+        {
+            appliedJumpPower += 1.0f / maxJumpHeight / jumpIncreaseRate;
+        }
     }
 
     /// <summary>
@@ -127,35 +152,67 @@ public class CharacterMover : MonoBehaviour
         }
     }
 
-    void Update()
+    /// <summary>
+    /// Applies a force to the character's velocity
+    /// </summary>
+    public void AddForce(Vector2 force)
     {
-        if (characterController2D.isGrounded)
-        {
-            velocity.y = 0;
-        }
-        if (jumping)
-        {
-            ApplyJump();
-        }
-        ApplyHorizontalMovement();
-        ApplyGravity();
-        ApplyVelocity();
+        velocity += force;
+    }
 
+    public bool Bump(Vector2 force)
+    {
+        if (bumpCooldown > 0)
+        {
+            return false;
+        }
+        bumpCooldown = bumpTime;
+        AddForce(force);
+        return true;
+    }
+
+    /// <summary>
+    /// Gets the velocity
+    /// </summary>
+    public Vector2 GetVelocity()
+    {
+        return characterController2D.velocity;
+    }
+
+    /// <summary>
+    /// Checks whether or not the Character Controller is grounded
+    /// </summary>
+    public bool IsGrounded()
+    {
+        return characterController2D.isGrounded;
+    }
+
+    private void UpdateBumpCooldown()
+    {
+        if (bumpCooldown > 0)
+        {
+            bumpCooldown -= Time.deltaTime;
+            bumpCooldown = Mathf.Max(bumpCooldown, 0);
+        }
     }
 
     private void ApplyJump()
     {
-        if (characterController2D.isGrounded)
+        velocity.y = Mathf.Sqrt(appliedJumpPower * -Physics2D.gravity.y);
+        if (appliedJumpPower >= maxJumpHeight || appliedJumpPower == oldAppliedJumpPower)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -Physics2D.gravity.y);
+            jumping = false;
         }
-        jumping = false;
+        else
+        {
+            oldAppliedJumpPower = appliedJumpPower;
+        }
     }
 
     private void ApplyHorizontalMovement()
     {
         var smoothedMovementFactor = characterController2D.isGrounded ? groundDamping : inAirDamping;
-        velocity.x = Mathf.Lerp(velocity.x, normalizedHorizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor);
+        velocity.x = Mathf.Lerp(velocity.x, horizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor);
     }
 
     private void ApplyGravity()

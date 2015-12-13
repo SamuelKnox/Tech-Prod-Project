@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 6b4f0b38caad18d429205ffc098a666d
-timeCreated: 1449884788
-licenseType: Free
+timeCreated: 1449971571
+licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
     21300000: player_idle_0
@@ -12,6 +12,28 @@ TextureImporter:
     21300010: platform
     21300012: short_sword
     21300014: long_sword
+    21300016: player_idle_0
+    21300018: player_idle_1
+    21300020: player_chop_attack_0
+    21300022: player_chop_attack_1
+    21300024: player_chop_attack_2
+    21300026: player_jump_0
+    21300028: player_jump_1
+    21300030: player_run_0
+    21300032: player_run_1
+    21300034: player_run_2
+    21300036: enemy_idle_0
+    21300038: enemy_idle_1
+    21300040: enemy_melee_attack_0
+    21300042: enemy_melee_attack_1
+    21300044: enemy_melee_attack_2
+    21300046: enemy_jump_0
+    21300048: enemy_jump_1
+    21300050: enemy_run_0
+    21300052: enemy_run_1
+    21300054: enemy_run_2
+    21300056: player_lunge_attack_0
+    21300058: player_lunge_attack_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -45,6 +67,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -65,7 +88,7 @@ TextureImporter:
         width: 37
         height: 93
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_idle_1
       rect:
@@ -75,9 +98,9 @@ TextureImporter:
         width: 38
         height: 98
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_swing_sword_0
+    - name: player_chop_attack_0
       rect:
         serializedVersion: 2
         x: 118
@@ -87,23 +110,73 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_swing_sword_1
+    - name: player_chop_attack_1
       rect:
         serializedVersion: 2
-        x: 163
-        y: 917
+        x: 172
+        y: 916
         width: 46
         height: 95
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_swing_sword_2
+    - name: player_chop_attack_2
       rect:
         serializedVersion: 2
-        x: 208
+        x: 224
         y: 917
-        width: 46
+        width: 47
         height: 95
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_jump_0
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 917
+        width: 40
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_jump_1
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 924
+        width: 50
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_run_0
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 925
+        width: 44
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_run_1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 924
+        width: 41
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_run_2
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 928
+        width: 43
+        height: 84
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,7 +188,7 @@ TextureImporter:
         width: 500
         height: 50
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: short_sword
       rect:
@@ -124,18 +197,138 @@ TextureImporter:
         y: 779
         width: 10
         height: 50
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: long_sword
       rect:
         serializedVersion: 2
         x: 25
-        y: 776
+        y: 775
         width: 10
         height: 75
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_idle_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 676
+        width: 37
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_idle_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 673
+        width: 38
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_melee_attack_0
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 673
+        width: 45
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_melee_attack_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 675
+        width: 46
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_melee_attack_2
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 676
+        width: 47
+        height: 95
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_jump_0
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 678
+        width: 39
+        height: 93
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_jump_1
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 683
+        width: 50
+        height: 88
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_run_0
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 684
+        width: 44
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_run_1
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 683
+        width: 41
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemy_run_2
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 687
+        width: 43
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_lunge_attack_0
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 923
+        width: 45
+        height: 95
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_lunge_attack_1
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 923
+        width: 94
+        height: 95
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
